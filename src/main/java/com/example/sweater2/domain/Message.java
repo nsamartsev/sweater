@@ -18,6 +18,8 @@ public class Message {
     @JoinColumn(name = "user_id")
     @Getter @Setter private User author;
 
+    @Getter @Setter private String filename;
+
     public String getAuthorName() {
         return author != null ? author.getUsername() : "<none>";
     }

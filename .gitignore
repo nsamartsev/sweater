@@ -4,6 +4,7 @@
 out/
 gen/
 target/
+uploads/
 idea-gitignore.jar
 resources/templates.list
 resources/gitignore/*
