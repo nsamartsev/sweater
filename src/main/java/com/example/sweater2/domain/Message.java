@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter @Setter private Integer id;
+    @Getter @Setter private Long id;
 
     @Getter @Setter private String text;
     @Getter @Setter private String tag;
