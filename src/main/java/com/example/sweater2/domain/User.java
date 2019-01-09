@@ -22,6 +22,9 @@ public class User implements UserDetails {
     @Getter @Setter private String password;
     @Getter @Setter private boolean active;
 
+    @Getter @Setter private String email;
+    @Getter @Setter private String activationCode;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -50,5 +53,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
+    }
+
+    public boolean isAdmin() {
+        return roles.contains(Role.ADMIN);
     }
 }
