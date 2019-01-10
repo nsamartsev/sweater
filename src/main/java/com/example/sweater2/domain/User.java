@@ -1,6 +1,8 @@
 package com.example.sweater2.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,11 +20,18 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter @Setter private Long id;
 
+    @NotBlank(message = "Username cannot be empty")
     @Getter @Setter private String username;
+
+    @NotBlank(message = "Password cannot be empty")
     @Getter @Setter private String password;
+
     @Getter @Setter private boolean active;
 
+    @Email(message = "Email is not correct")
+    @NotBlank(message = "Email cannot be empty")
     @Getter @Setter private String email;
+
     @Getter @Setter private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
