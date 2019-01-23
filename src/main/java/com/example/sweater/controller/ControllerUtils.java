@@ -1,4 +1,4 @@
-package com.example.sweater2.controller;
+package com.example.sweater.controller;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

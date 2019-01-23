@@ -1,4 +1,4 @@
-package com.example.sweater2.domain;
+package com.example.sweater.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
