@@ -1,33 +1,33 @@
-create sequence hibernate_sequence start 1 increment 1;
+CREATE SEQUENCE hibernate_sequence START 1 INCREMENT 1;
 
-	create table message (
-	    id int8 not null,
-	    filename varchar(255),
-	    tag varchar(255),
-	    text varchar(2048) not null,
-	    user_id int8,
-	    primary key (id)
-	);
+CREATE TABLE IF NOT EXISTS message(
+    id int8 NOT NULL,
+    filename varchar(255),
+    tag varchar(255),
+    text varchar(2048) NOT NULL,
+    user_id int8,
+    PRIMARY KEY (ID)
+);
 
-	create table user_role (
-	    user_id int8 not null,
-	    roles varchar(255)
-	);
+CREATE TABLE user_role (
+    user_id int8 NOT NULL,
+    roles varchar(255)
+);
 
-	create table usr (
-	    id int8 not null,
-	    activation_code varchar(255),
-	    active boolean not null,
-	    email varchar(255),
-	    password varchar(255) not null,
-	    username varchar(255) not null,
-	    primary key (id)
-	);
+CREATE TABLE usr (
+    id int8 not null,
+    activation_code varchar(255),
+    active boolean not null,
+    email varchar(255),
+    password varchar(255) not null,
+    username varchar(255) not null,
+    primary key (id)
+);
 
-	alter table if exists message
-	    add constraint message_user_fk
-	    foreign key (user_id) references usr;
+ALTER TABLE IF EXISTS message
+ADD CONSTRAINT message_user_fk
+FOREIGN KEY (user_id) REFERENCES usr;
 
-	alter table if exists user_role
-	    add constraint user_role_user_fk
-	    foreign key (user_id) references usr;
+ALTER TABLE IF EXISTS user_role
+ADD CONSTRAINT user_role_user_fk
+FOREIGN KEY (user_id) REFERENCES usr;

@@ -2,7 +2,7 @@ package com.example.sweater.service;
 
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
-import com.example.sweater.repos.UserRepo;
+import com.example.sweater.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,9 +51,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         userRepo.save(user);
-
         sendMessage(user);
-
         return true;
     }
 
@@ -74,14 +72,12 @@ public class UserService implements UserDetailsService {
     public boolean activateUser(String code) {
         User user = userRepo.findByActivationCode(code);
 
-        if (user == null) {
+        if (Objects.isNull(user)) {
             return false;
         }
 
         user.setActivationCode(null);
-
         userRepo.save(user);
-
         return true;
     }
 

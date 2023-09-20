@@ -64,9 +64,7 @@ public class RegistrationController {
 
         if (isConfirmEmpty || bindingResult.hasErrors() || !response.isSuccess()) {
             Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
-
             model.mergeAttributes(errors);
-
             return "registration";
         }
 
@@ -92,6 +90,5 @@ public class RegistrationController {
 
         return "login";
     }
-
 
 }

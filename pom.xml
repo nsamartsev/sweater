@@ -20,7 +20,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-commons -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
@@ -28,7 +27,6 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mustache -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
@@ -106,21 +104,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
-
-
-
     </dependencies>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
 
     <build>
         <plugins>

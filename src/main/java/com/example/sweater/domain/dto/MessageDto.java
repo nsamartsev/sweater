@@ -8,13 +8,27 @@ import lombok.ToString;
 
 @ToString(of = {"id", "author", "likes", "meLiked"})
 public class MessageDto {
-    @Getter private Long id;
-    @Getter private String text;
-    @Getter private String tag;
-    @Getter private User author;
-    @Getter private String filename;
-    @Getter private Long likes;
-    @Getter private Boolean meLiked;
+
+    @Getter
+    private Long id;
+
+    @Getter
+    private String text;
+
+    @Getter
+    private String tag;
+
+    @Getter
+    private User author;
+
+    @Getter
+    private String filename;
+
+    @Getter
+    private Long likes;
+
+    @Getter
+    private Boolean meLiked;
 
     public MessageDto(Message message, Long likes, Boolean meLiked) {
         this.id = message.getId();

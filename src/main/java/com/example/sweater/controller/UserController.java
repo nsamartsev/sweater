@@ -15,6 +15,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -22,7 +23,6 @@ public class UserController {
     @GetMapping
     public String userList(Model model) {
         model.addAttribute("users", userService.findAll());
-
         return "userList";
     }
 
@@ -31,7 +31,6 @@ public class UserController {
     public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("roles", Role.values());
-
         return "userEdit";
     }
 
@@ -43,7 +42,6 @@ public class UserController {
             @RequestParam("userId") User user
     ) {
         userService.saveUser(user, username, form);
-
         return "redirect:/user";
     }
 
@@ -51,7 +49,6 @@ public class UserController {
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("email", user.getEmail());
-
         return "profile";
     }
 
@@ -62,11 +59,8 @@ public class UserController {
             @RequestParam String email
     ) {
         userService.updateProfile(user, password, email);
-
         return "redirect:/user/profile";
     }
-
-
 
     @GetMapping("subscribe/{user}")
     public String subscribe(
@@ -74,7 +68,6 @@ public class UserController {
             @PathVariable User user
     ) {
         userService.subscribe(currentUser, user);
-
         return "redirect:/user-messages/" + user.getId();
     }
 
@@ -84,7 +77,6 @@ public class UserController {
             @PathVariable User user
     ) {
         userService.unsubscribe(currentUser, user);
-
         return "redirect:/user-messages/" + user.getId();
     }
 

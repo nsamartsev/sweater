@@ -9,7 +9,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CaptchaResponseDto {
-    @Getter @Setter private boolean success;
+
+    @Getter
+    @Setter
+    private boolean success;
+
     @JsonAlias("error-codes")
-    @Getter @Setter private Set<String> errorCodes;
+    @Getter
+    @Setter
+    private Set<String> errorCodes;
+
 }

@@ -37,16 +37,14 @@ public class MailConfig {
     private String enable;
 
     @Bean
-    public JavaMailSender getMailSender() {
+    public JavaMailSender configMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-
         mailSender.setHost(host);
         mailSender.setPort(port);
         mailSender.setUsername(username);
         mailSender.setPassword(password);
 
         Properties properties = mailSender.getJavaMailProperties();
-
         properties.setProperty("mail.transport.protocol", protocol);
         properties.setProperty("mail.debug", debug);
         properties.setProperty("mail.smtp.auth", auth);

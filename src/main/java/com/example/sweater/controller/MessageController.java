@@ -1,8 +1,9 @@
 package com.example.sweater.controller;
+
 import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
 import com.example.sweater.domain.dto.MessageDto;
-import com.example.sweater.repos.MessageRepo;
+import com.example.sweater.repository.MessageRepo;
 import com.example.sweater.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,7 +49,7 @@ public class MessageController {
     public String main(
             @RequestParam(required = false, defaultValue = "") String filter,
             Model model,
-            @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
             @AuthenticationPrincipal User user
     ) {
         Page<MessageDto> page = messageService.messageList(pageable, filter, user);
@@ -113,7 +114,7 @@ public class MessageController {
             @PathVariable User author,
             Model model,
             @RequestParam(required = false) Message message,
-            @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable
     ) {
         Page<MessageDto> page = messageService.messageListForUser(pageable, currentUser, author);
 
@@ -173,8 +174,7 @@ public class MessageController {
         UriComponents components = UriComponentsBuilder.fromHttpUrl(referer).build();
 
         components.getQueryParams()
-                .entrySet()
-                .forEach(pair -> redirectAttributes.addAttribute(pair.getKey(), pair.getValue()));
+                .forEach(redirectAttributes::addAttribute);
 
         return "redirect:" + components.getPath();
     }

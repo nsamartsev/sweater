@@ -2,7 +2,7 @@ package com.example.sweater;
 
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
-import com.example.sweater.repos.UserRepo;
+import com.example.sweater.repository.UserRepo;
 import com.example.sweater.service.MailSender;
 import com.example.sweater.service.UserService;
 import org.hamcrest.CoreMatchers;

@@ -1,9 +1,9 @@
-delete from message;
+DELETE FROM message;
 
-	insert into message(id, text, tag, user_id) values
+INSERT INTO message(id, text, tag, user_id) VALUES
 	(1, 'first', 'my-tag', 1),
 	(2, 'second', 'more', 1),
 	(3, 'third', 'my-tag', 1),
 	(4, 'fourth', 'another', 2);
 
-	alter sequence hibernate_sequence restart with 10;
+ALTER SEQUENCE hibernate_sequence restart WITH 10;
