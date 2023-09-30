@@ -15,13 +15,13 @@ CREATE TABLE user_role (
 );
 
 CREATE TABLE usr (
-    id int8 not null,
+    id int8 NOT NULL,
     activation_code varchar(255),
-    active boolean not null,
+    active boolean NOT NULL,
     email varchar(255),
-    password varchar(255) not null,
-    username varchar(255) not null,
-    primary key (id)
+    password varchar(255) NOT NULL,
+    username varchar(255) NOT NULL,
+    PRIMARY KEY (id)
 );
 
 ALTER TABLE IF EXISTS message

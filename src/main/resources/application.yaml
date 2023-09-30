@@ -1,0 +1,40 @@
+spring:
+  jpa:
+    generate-ddl: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+  freemarker:
+    expose-request-attributes: true
+  mail:
+    host: smtp.gmail.com
+    username: samartsevnikita@gmail.com
+    protocol: smtp
+    port: 587
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+    password: ArturGavrilov1990
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/sweater_db?currentSchema=sweater
+    username: postgres
+    password: mysecretpassword
+  session:
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
+mail:
+  debug: false
+hostname: 127.0.0.1
+upload:
+  path: ./uploads
+recaptcha:
+  secret: 6LfWn4gUAAAAAKYmCR_FjjcMZq9kSJhBPBku7pQP
