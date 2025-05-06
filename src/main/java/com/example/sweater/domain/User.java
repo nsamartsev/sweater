@@ -27,6 +27,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Setter
+@Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "usr")
@@ -34,44 +36,28 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
-    @Getter
-    @Setter
     private Long id;
 
     @NotBlank(message = "Username cannot be empty")
-    @Getter
-    @Setter
     private String username;
 
     @NotBlank(message = "Password cannot be empty")
-    @Getter
-    @Setter
     private String password;
 
-    @Getter
-    @Setter
     private boolean active;
 
     @Email(message = "Email is not correct")
     @NotBlank(message = "Email cannot be empty")
-    @Getter
-    @Setter
     private String email;
 
-    @Getter
-    @Setter
     private String activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    @Getter
-    @Setter
     private Set<Role> roles;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @Getter
-    @Setter
     private Set<Message> messages;
 
     @ManyToMany
@@ -80,8 +66,6 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "channel_id")},
             inverseJoinColumns = {@JoinColumn(name = "subscriber_id")}
     )
-    @Getter
-    @Setter
     private Set<User> subscribers = new HashSet<>();
 
     @ManyToMany
@@ -90,8 +74,6 @@ public class User implements UserDetails {
             joinColumns = {@JoinColumn(name = "subscriber_id")},
             inverseJoinColumns = {@JoinColumn(name = "channel_id")}
     )
-    @Getter
-    @Setter
     private Set<User> subscriptions = new HashSet<>();
 
     @Override
@@ -117,9 +99,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
-    }
-
-    public boolean isAdmin() {
-        return roles.contains(Role.ADMIN);
     }
 }

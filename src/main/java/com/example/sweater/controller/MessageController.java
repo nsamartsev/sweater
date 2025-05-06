@@ -6,7 +6,8 @@ import com.example.sweater.domain.dto.MessageDto;
 import com.example.sweater.repository.MessageRepo;
 import com.example.sweater.service.MessageService;
 import com.example.sweater.util.ControllerUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,27 +32,29 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 @Controller
+@Slf4j
+@RequiredArgsConstructor
 public class MessageController {
-    @Autowired
-    private MessageRepo messageRepo;
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageRepo messageRepo;
 
-    @Value("${upload.path}")
+    private final MessageService messageService;
+
+    @Value("${upload.path:}")
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting(Map<String, Object> model) {
+    public String greeting() {
         return "greeting";
     }
 
     @GetMapping("/main")
-    public String main(
+    public String mainUrl(
             @RequestParam(required = false, defaultValue = "") String filter,
             Model model,
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -75,38 +78,32 @@ public class MessageController {
             @RequestParam("file") MultipartFile file
     ) throws IOException {
         message.setAuthor(user);
-
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-
             model.mergeAttributes(errorsMap);
             model.addAttribute("message", message);
         } else {
             saveFile(message, file);
-
             model.addAttribute("message", null);
-
             messageRepo.save(message);
         }
 
         Iterable<Message> messages = messageRepo.findAll();
-
         model.addAttribute("messages", messages);
-
         return "main";
     }
 
     private void saveFile(@Valid Message message, @RequestParam("file") MultipartFile file) throws IOException {
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
+        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+                boolean dirCreated = uploadDir.mkdir();
+                log.info("Directory {} is created: {}", uploadDir.getAbsolutePath(), dirCreated);
             }
 
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
             file.transferTo(new File(uploadPath + "/" + resultFilename));
 
             message.setFilename(resultFilename);

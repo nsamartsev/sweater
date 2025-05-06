@@ -8,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
 
+@Repository
 public interface MessageRepo extends CrudRepository<Message, Long> {
 
     @Query("select new com.example.sweater.domain.dto.MessageDto(" +

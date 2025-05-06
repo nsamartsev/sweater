@@ -2,33 +2,26 @@ package com.example.sweater.domain.dto;
 
 import com.example.sweater.domain.Message;
 import com.example.sweater.domain.User;
-import com.example.sweater.domain.util.MessageHelper;
 import lombok.Getter;
 import lombok.ToString;
 
+@Getter
 @ToString(of = {"id", "author", "likes", "meLiked"})
 public class MessageDto {
 
-    @Getter
-    private Long id;
+    private final Long id;
 
-    @Getter
-    private String text;
+    private final String text;
 
-    @Getter
-    private String tag;
+    private final String tag;
 
-    @Getter
-    private User author;
+    private final User author;
 
-    @Getter
-    private String filename;
+    private final String filename;
 
-    @Getter
-    private Long likes;
+    private final Long likes;
 
-    @Getter
-    private Boolean meLiked;
+    private final Boolean meLiked;
 
     public MessageDto(Message message, Long likes, Boolean meLiked) {
         this.id = message.getId();
@@ -38,10 +31,6 @@ public class MessageDto {
         this.filename = message.getFilename();
         this.likes = likes;
         this.meLiked = meLiked;
-    }
-
-    public String getAuthorName() {
-        return MessageHelper.getAuthorName(author);
     }
 
 }

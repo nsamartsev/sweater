@@ -3,7 +3,7 @@ package com.example.sweater.service;
 import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,17 +22,16 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService implements UserDetailsService {
-    @Autowired
-    private UserRepo userRepo;
 
-    @Autowired
-    private MailSender mailSender;
+    private final UserRepo userRepo;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final MailSender mailSender;
 
-    @Value("${hostname}")
+    private final PasswordEncoder passwordEncoder;
+
+    @Value("${hostname:}")
     private String hostname;
 
     @Override
@@ -110,13 +109,11 @@ public class UserService implements UserDetailsService {
 
     public void updateProfile(User user, String password, String email) {
         String userEmail = user.getEmail();
-
         boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
                 (userEmail != null && !userEmail.equals(email));
 
         if (isEmailChanged) {
             user.setEmail(email);
-
             if (!StringUtils.isEmpty(email)) {
                 user.setActivationCode(UUID.randomUUID().toString());
             }
@@ -127,7 +124,6 @@ public class UserService implements UserDetailsService {
         }
 
         userRepo.save(user);
-
         if (isEmailChanged) {
             sendMessage(user);
         }
